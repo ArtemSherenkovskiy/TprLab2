@@ -13,8 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        tableresult.cpp
+        tableresult.cpp \
+    thing.cpp \
+    setofthings.cpp
 
-HEADERS  += tableresult.h
+HEADERS  += tableresult.h \
+    thing.h \
+    setofthings.h \
+    constants.h
 
 FORMS    += tableresult.ui
