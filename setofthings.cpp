@@ -1,6 +1,6 @@
 #include "setofthings.h"
 
-SetOfThings::SetOfThings(int id, int tempMax, int tempMin, Thing head, Thing upper, Thing gloves, Thing pants, Thing shoes)
+SetOfThings::SetOfThings(int id, int tempMax, int tempMin, Thing *head, Thing *upper, Thing *gloves, Thing *pants, Thing *shoes)
 {
     this->id = id;
     this->tempMax = tempMax;
@@ -16,10 +16,10 @@ SetOfThings::SetOfThings(int id, int tempMax, int tempMin, Thing head, Thing upp
 
 void SetOfThings::calculateWeight()
 {
-    weight += head.weight;
-    weight += upper.weight;
-    weight += gloves.weight;
-    weight += pants.weight;
-    weight += shoes.weight;
+    weight += head->weight;
+    weight += upper->weight;
+    weight += gloves->weight;
+    weight += pants->weight;
+    weight += shoes->weight;
 }
 

@@ -7,16 +7,16 @@
 class SetOfThings
 {
 public:
-    SetOfThings(int id, int tempMax, int tempMin, Thing head, Thing upper, Thing gloves, Thing pants, Thing shoes);
+    SetOfThings(int id, int tempMax, int tempMin, Thing *head, Thing *upper, Thing *gloves, Thing *pants, Thing *shoes);
 
     int id;
     int tempMax;
     int tempMin;
-    Thing head;
-    Thing upper;
-    Thing gloves;
-    Thing pants;
-    Thing shoes;
+    Thing *head;
+    Thing *upper;
+    Thing *gloves;
+    Thing *pants;
+    Thing *shoes;
     double weight;
 
 

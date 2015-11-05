@@ -1,8 +1,8 @@
 #ifndef TABLERESULT_H
 #define TABLERESULT_H
 
-
-#include <thing.h>
+#include <limits.h>
+#include <setofthings.h>
 #include <QMainWindow>
 
 namespace Ui {
@@ -22,7 +22,9 @@ private:
     int * temperatures;
     void createTemp();
     QList<Thing*> THINGS;
+    QList<SetOfThings *> SETS_OF_THINGS;
     void createThings();
+    void createSetsOfThings();
 };
 
 #endif // TABLERESULT_H
