@@ -1,7 +1,8 @@
 #ifndef TABLERESULT_H
 #define TABLERESULT_H
 
-#include "constants.h"
+
+#include <thing.h>
 #include <QMainWindow>
 
 namespace Ui {
@@ -20,6 +21,8 @@ private:
     Ui::TableResult *ui;
     int * temperatures;
     void createTemp();
+    QList<Thing*> THINGS;
+    void createThings();
 };
 
 #endif // TABLERESULT_H

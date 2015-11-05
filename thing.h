@@ -1,6 +1,8 @@
 #ifndef THING_H
 #define THING_H
 
+
+#include "constants.h"
 #include<QString>
 
 

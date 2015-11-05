@@ -37,7 +37,6 @@ void TableResult::createTemp()
 
 void TableResult::createThings()
 {
-    THINGS = new List<Thing>();
     THINGS.append(new Thing(1, "Blazer", 0.5, 6));
     THINGS.append(new Thing(2, "Bushlat", 4, 48));
     THINGS.append(new Thing(3, "Vatnie shtani", 2, 24));
