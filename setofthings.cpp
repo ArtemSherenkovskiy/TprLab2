@@ -12,6 +12,7 @@ SetOfThings::SetOfThings(int id, int tempMax, int tempMin, Thing *head, Thing *u
     this->shoes = shoes;
     weight = 0;
     calculateWeight();
+    calculateCost();
 }
 
 void SetOfThings::calculateWeight()
@@ -21,5 +22,19 @@ void SetOfThings::calculateWeight()
     weight += gloves->weight;
     weight += pants->weight;
     weight += shoes->weight;
+}
+
+void SetOfThings::calculateCost()
+{
+    cost = weight * (double)(KILOGRAM_COST);
+}
+
+bool SetOfThings::isPleasantTemperature(int temperature)
+{
+    if(temperature > tempMin && temperature < tempMax)
+    {
+        return true;
+    }
+    return false;
 }
 

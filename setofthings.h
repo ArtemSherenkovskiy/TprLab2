@@ -18,10 +18,15 @@ public:
     Thing *pants;
     Thing *shoes;
     double weight;
+    double cost;
+    static const int KILOGRAM_COST = 10;
 
 
 private:
     void calculateWeight();
+    void calculateCost();
+public:
+    bool isPleasantTemperature(int temperature);
 
 };
 
