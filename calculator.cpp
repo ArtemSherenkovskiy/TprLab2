@@ -12,21 +12,21 @@ Calculator::Calculator()
 
 
 
-double *Calculator::calculateAnswers(double *probabilityArray)
+QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray)
 {
-    double * answers = new double[setsOfThingsSize];
+    QList<double> *answers = new QList<double>();
     for(int i = 0; i < setsOfThingsSize; ++i)
     {
-        answers[i] = 0;
+        answers->append(0);
         for(int j = 0; j < NUM_OF_MONTHES; ++j)
         {
-            answers[i] += monthExpenditure[i][j] * probabilityArray[j];
+            answers->replace(i,answers->value(i) + monthExpenditure.at(i)->at(j) * probabilityArray->at(j));
         }
     }
     return answers;
 }
 
-double *Calculator::calculateAnswers(double *probabilityArray, QMap<int, int> newPrices/*multyplies to current costs of things*/)
+QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray, QMap<int, int> newPrices/*multyplies to current costs of things*/)
 {
     for(int i = 0, size = THINGS.size(); i < size; ++i)
     {
@@ -54,13 +54,10 @@ void Calculator::calculateMonthExpenditure()
 {
     for(int i = 0; i < setsOfThingsSize; ++i)
     {
-        monthExpenditure[i] = new double[NUM_OF_MONTHES];
-    }
-    for(int i = 0; i < setsOfThingsSize; ++i)
-    {
+        monthExpenditure.append(new QList<double>());
         for(int j = 0; j < NUM_OF_MONTHES; ++j)
         {
-            monthExpenditure[i][j] = foreignCostCalculate(SETS_OF_THINGS[i], temperatureArray[j]);
+            monthExpenditure[i]->append(SETS_OF_THINGS[i]->cost + foreignCostCalculate(SETS_OF_THINGS[i], temperatureArray[j]));
         }
     }
 }
@@ -79,23 +76,23 @@ double Calculator::foreignCostCalculate(SetOfThings *setOfThings, int temperatur
     }
     if(needSet->head->id != setOfThings->head->id)
     {
-        needCost += needSet->head->cost;
+        needCost += needSet->head->cost + Thing::FOREIGN_BONUS;
     }
     if(needSet->upper->id != setOfThings->upper->id)
     {
-        needCost += needSet->upper->cost;
+        needCost += needSet->upper->cost + Thing::FOREIGN_BONUS;
     }
     if(needSet->gloves->id != setOfThings->gloves->id)
     {
-        needCost += needSet->gloves->cost;
+        needCost += needSet->gloves->cost + Thing::FOREIGN_BONUS;
     }
     if(needSet->pants->id != setOfThings->pants->id)
     {
-        needCost += needSet->pants->cost;
+        needCost += needSet->pants->cost + Thing::FOREIGN_BONUS;
     }
     if(needSet->shoes->id != setOfThings->shoes->id)
     {
-        needCost += needSet->shoes->cost;
+        needCost += needSet->shoes->cost + Thing::FOREIGN_BONUS;
     }
     return needCost;
 }
@@ -155,8 +152,9 @@ void Calculator::createSetsOfThings()
                                           THINGS[0],THINGS[5], THINGS[7]));
     SETS_OF_THINGS.append(new SetOfThings(4, 30, 21, THINGS[1], THINGS[12],
                                           THINGS[0],THINGS[5], THINGS[7]));
-    SETS_OF_THINGS.append(new SetOfThings(5, 31, INT_MAX, THINGS[1], THINGS[13],
+    SETS_OF_THINGS.append(new SetOfThings(5, INT_MAX, 31, THINGS[1], THINGS[13],
             THINGS[0],THINGS[5], THINGS[4]));
+    setsOfThingsSize = SETS_OF_THINGS.size();
 }
 
 

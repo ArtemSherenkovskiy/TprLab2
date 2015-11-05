@@ -31,7 +31,7 @@ void SetOfThings::calculateCost()
 
 bool SetOfThings::isPleasantTemperature(int temperature)
 {
-    if(temperature > tempMin && temperature < tempMax)
+    if(temperature >= tempMin && temperature <= tempMax)
     {
         return true;
     }

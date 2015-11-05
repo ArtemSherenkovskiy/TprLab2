@@ -15,7 +15,7 @@ public:
     QString name;
     double weight;
     int cost;
-    static const int foreignBonus = 2;// на 2 уо дороже за гарницей
+    static const int FOREIGN_BONUS = 2;// на 2 уо дороже за гарницей
 
 };
 

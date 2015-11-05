@@ -7,7 +7,7 @@
 #include <QList>
 
 
-#define TASK "29	Йошкар-Ола (Росія)	-14	-12	-5	+5	+12	+16	+19	+17	+11	+3	-4	-9"
+#define TASK "20	Квебек (Канада)	-13	-11	-5	+3	+11	+16	+19	+18	+12	+6	-1	-9"
 #define NUM_OF_MONTHES 12
 #define NUM_OF_DAYS 365
 

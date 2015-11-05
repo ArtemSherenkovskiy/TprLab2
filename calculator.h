@@ -8,8 +8,8 @@ class Calculator
 {
 public:
     Calculator();
-    double *calculateAnswers(double *probabilityArray);
-    double *calculateAnswers(double *probabilityArray, QMap<int, int> newPrices);
+    QList<double> *calculateAnswers(QList<double> *probabilityArray);
+    QList<double> *calculateAnswers(QList<double> *probabilityArray, QMap<int, int> newPrices);
 
 
 private:
@@ -22,7 +22,7 @@ private:
     double foreignCostCalculate(SetOfThings *setOfThings, int temperature);
     void calculateMonthExpenditure();
     int setsOfThingsSize;
-    double **monthExpenditure;
+    QList<QList<double> *>monthExpenditure;
 };
 
 #endif // CALCULATOR_H

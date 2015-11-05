@@ -19,6 +19,7 @@ public:
 
 private:
     Ui::TableResult *ui;
+    Calculator *calculator;
 
 };
 
