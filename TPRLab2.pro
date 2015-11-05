@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         tableresult.cpp \
     thing.cpp \
-    setofthings.cpp
+    setofthings.cpp \
+    calculator.cpp
 
 HEADERS  += tableresult.h \
     thing.h \
     setofthings.h \
-    constants.h
+    constants.h \
+    calculator.h
 
 FORMS    += tableresult.ui

@@ -2,7 +2,7 @@
 #define TABLERESULT_H
 
 #include <limits.h>
-#include <setofthings.h>
+#include <calculator.h>
 #include <QMainWindow>
 
 namespace Ui {
@@ -19,12 +19,7 @@ public:
 
 private:
     Ui::TableResult *ui;
-    int * temperatures;
-    void createTemp();
-    QList<Thing*> THINGS;
-    QList<SetOfThings *> SETS_OF_THINGS;
-    void createThings();
-    void createSetsOfThings();
+
 };
 
 #endif // TABLERESULT_H
