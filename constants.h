@@ -9,3 +9,4 @@
 #define NUM_OF_MONTHES 12
 
 enum monthes{December = 0, January, February, March, April, May, June, July, August, September, October, November};
+int daysInMonth[] = {31,31,28,31,30,31,30,31,31,30,31,30};
