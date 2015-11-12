@@ -81,6 +81,11 @@ void Calculator::calculateMonthExpenditure()
     }
 }
 
+QList<QList<double> *> Calculator::getMonthExpenditure() const
+{
+    return monthExpenditure;
+}
+
 /**
  * @brief Calculator::foreignCostCalculate
  * calculate expenditure you will do, if you take SetOfThings * setOfThings and temperature will be int temperature

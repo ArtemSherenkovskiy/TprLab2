@@ -7,18 +7,43 @@ TableResult::TableResult(QWidget *parent) :
 {
     ui->setupUi(this);
     calculator = new Calculator();
-    QList<double> *probability = new QList<double>();
-    for(int i = 0; i < NUM_OF_MONTHES; ++i)
-    {
-        probability->append((double)1/(double)12);
-    }
-    QList<double> *answers = calculator->calculateAnswers(probability);
-    system("pause");
+   createTable();
 }
 
 TableResult::~TableResult()
 {
     delete ui;
+}
+
+void TableResult::createTable()
+{
+    QFile file("result.csv");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+           return;
+
+       QTextStream out(&file);
+
+    QList<double> *probability = new QList<double>();
+    for(int i = 0; i < NUM_OF_MONTHES; ++i)
+    {
+        probability->append((double)1/(double)12);
+    }
+    auto sets = calculator->getMonthExpenditure();
+    out<< 'Sets ;';
+    for(int i = 0 ; i<NUM_OF_MONTHES;i++)
+    {
+        out<<i+1<<";";
+    }
+    out<<"\n";
+    for(int i=0;i<sets.size();i++)
+    {
+        out<<i<<";";
+        for(int j=0; j<sets.at(i)->size();j++)
+        {
+            out<<sets.at(i)->at(j)<<";";
+        }
+        out<<"\n";
+    }
 }
 
 

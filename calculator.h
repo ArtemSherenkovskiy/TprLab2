@@ -9,8 +9,10 @@ class Calculator
 public:
     Calculator();
     QList<double> *calculateAnswers(QList<double> *probabilityArray);
-    QList<double> *calculateAnswers(QList<double> *probabilityArray, QMap<int, double> newPrices);
+    QList<double> *calculateAnswers(QList<double> *probabilityArray, QMap<int, double> *newPrices);
 
+
+    QList<QList<double> *> getMonthExpenditure() const;
 
 private:
     int * temperatureArray;
