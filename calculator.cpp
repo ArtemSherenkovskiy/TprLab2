@@ -11,7 +11,13 @@ Calculator::Calculator()
 }
 
 
-
+/**
+ * @brief Calculator::calculateAnswers
+ * @param QList<double> *probabilityArray
+ * QList that contains probability of return in each month
+ * @return QList<double> *
+ * returns pointer to QList<double> costs you need to spend abroad
+ */
 QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray)
 {
     QList<double> *answers = new QList<double>();
@@ -26,11 +32,21 @@ QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray)
     return answers;
 }
 
-QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray, QMap<int, int> newPrices/*multyplies to current costs of things*/)
+
+/**
+ * @brief Calculator::calculateAnswers
+ * @param QList<double> *probabilityArray
+ * pointer to QList<double> that contains probability of return in each month
+ * @param QMap<int, int> newPrices
+ * pointer to QMap<int, double> that contains combination (id of thing, koef to multiply cost of this thing)
+ * @return QList<double> *
+ * returns pointer to QList<double> costs you need to spend abroad
+ */
+QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray, QMap<int, double> *newPrices/*multyplies to current costs of things*/)
 {
     for(int i = 0, size = THINGS.size(); i < size; ++i)
     {
-        int value = newPrices.value(i, -1);
+        double value = newPrices->value(i, -1);
         if(value != -1)
         {
             THINGS[i]->cost *= value;
@@ -40,7 +56,7 @@ QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray, QMa
     calculateAnswers(probabilityArray);
     for(int i = 0, size = THINGS.size(); i < size; ++i)
     {
-        int value = newPrices.value(i, -1);
+        int value = newPrices->value(i, -1);
         if(value != -1)
         {
             THINGS[i]->cost /= value;
@@ -49,7 +65,10 @@ QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray, QMa
 
 }
 
-
+/**
+ * @brief Calculator::calculateMonthExpenditure
+ * calculate expenditure of each combination between month to come back and set of things
+ */
 void Calculator::calculateMonthExpenditure()
 {
     for(int i = 0; i < setsOfThingsSize; ++i)
@@ -62,6 +81,16 @@ void Calculator::calculateMonthExpenditure()
     }
 }
 
+/**
+ * @brief Calculator::foreignCostCalculate
+ * calculate expenditure you will do, if you take SetOfThings * setOfThings and temperature will be int temperature
+ * @param setOfThings
+ * pointer to SetOfThings that you want to take from home temperature that will be at place you want
+ * @param temperature
+ * temperature that will be at place you want
+ * @return
+ * returns sum of money which you will spend there
+ */
 double Calculator::foreignCostCalculate(SetOfThings *setOfThings, int temperature)
 {
     SetOfThings *needSet;

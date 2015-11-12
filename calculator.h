@@ -9,7 +9,7 @@ class Calculator
 public:
     Calculator();
     QList<double> *calculateAnswers(QList<double> *probabilityArray);
-    QList<double> *calculateAnswers(QList<double> *probabilityArray, QMap<int, int> newPrices);
+    QList<double> *calculateAnswers(QList<double> *probabilityArray, QMap<int, double> newPrices);
 
 
 private:
