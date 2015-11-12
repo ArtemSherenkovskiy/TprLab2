@@ -127,7 +127,10 @@ double Calculator::foreignCostCalculate(SetOfThings *setOfThings, int temperatur
 }
 
 
-
+/**
+ * @brief Calculator::createTemp
+ * take string TASK from file constant.h and find there temperatures
+ */
 void Calculator::createTemp()
 {
     QRegExp regExp("([\+\-]\\d+)");
@@ -147,6 +150,11 @@ void Calculator::createTemp()
     }
 }
 
+
+/**
+ * @brief Calculator::createThings
+ * create our THINGS
+ */
 void Calculator::createThings()
 {
     THINGS.append(new Thing(0, "Empty", 0, 0));
@@ -169,6 +177,11 @@ void Calculator::createThings()
     THINGS.append(new Thing(17, "Shorti", 0.5, 6));
 }
 
+
+/**
+ * @brief Calculator::createSetsOfThings
+ * create our set of  things
+ */
 void Calculator::createSetsOfThings()
 {
     SETS_OF_THINGS.append(new SetOfThings(0, -10, INT_MIN, THINGS[16], THINGS[2],
