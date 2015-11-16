@@ -49,19 +49,20 @@ QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray, QMa
         double value = newPrices->value(i, -1);
         if(value != -1)
         {
-            THINGS[i]->cost *= value;
+            THINGS[i]->cost = ((double)(THINGS[i]->cost) * value) + 0.5;
         }
     }
     calculateMonthExpenditure();
-    calculateAnswers(probabilityArray);
+    QList<double> * answer = calculateAnswers(probabilityArray);
     for(int i = 0, size = THINGS.size(); i < size; ++i)
     {
-        int value = newPrices->value(i, -1);
+        double value = newPrices->value(i, -1);
         if(value != -1)
         {
-            THINGS[i]->cost /= value;
+            THINGS[i]->cost = ((double)(THINGS[i]->cost) / value) + 0.5;
         }
     }
+    return answer;
 
 }
 
@@ -110,23 +111,23 @@ double Calculator::foreignCostCalculate(SetOfThings *setOfThings, int temperatur
     }
     if(needSet->head->id != setOfThings->head->id)
     {
-        needCost += needSet->head->cost + Thing::FOREIGN_BONUS;
+        needCost += needSet->head->foreignCost();
     }
     if(needSet->upper->id != setOfThings->upper->id)
     {
-        needCost += needSet->upper->cost + Thing::FOREIGN_BONUS;
+        needCost += needSet->upper->foreignCost();
     }
     if(needSet->gloves->id != setOfThings->gloves->id)
     {
-        needCost += needSet->gloves->cost + Thing::FOREIGN_BONUS;
+        needCost += needSet->gloves->foreignCost();
     }
     if(needSet->pants->id != setOfThings->pants->id)
     {
-        needCost += needSet->pants->cost + Thing::FOREIGN_BONUS;
+        needCost += needSet->pants->foreignCost();
     }
     if(needSet->shoes->id != setOfThings->shoes->id)
     {
-        needCost += needSet->shoes->cost + Thing::FOREIGN_BONUS;
+        needCost += needSet->shoes->foreignCost();
     }
     return needCost;
 }
@@ -177,7 +178,7 @@ void Calculator::createThings()
     THINGS.append(new Thing(12, "Rubashka", 0.5, 6));
     THINGS.append(new Thing(13, "Futbolka", 0.5, 6));
     THINGS.append(new Thing(14, "Chereviki", 1.5, 18));
-    THINGS.append(new Thing(15, "Bashmaki", 2, 24));
+    THINGS.append(new Thing(15, "Choboti", 2, 24));
     THINGS.append(new Thing(16, "Shapka", 1, 12));
     THINGS.append(new Thing(17, "Shorti", 0.5, 6));
 }
@@ -200,7 +201,7 @@ void Calculator::createSetsOfThings()
     SETS_OF_THINGS.append(new SetOfThings(4, 30, 21, THINGS[1], THINGS[12],
                                           THINGS[0],THINGS[5], THINGS[7]));
     SETS_OF_THINGS.append(new SetOfThings(5, INT_MAX, 31, THINGS[1], THINGS[13],
-            THINGS[0],THINGS[5], THINGS[4]));
+            THINGS[0],THINGS[17], THINGS[4]));
     setsOfThingsSize = SETS_OF_THINGS.size();
 }
 

@@ -7,7 +7,7 @@
 #include <QList>
 
 
-#define TASK "20	Квебек (Канада)	-13	-11	-5	+3	+11	+16	+19	+18	+12	+6	-1	-9"
+#define TASK "5 Гус-Бей (Канада) -18 -16 -10 -2 +5 +11 +15 +14 +9 +2 -4 -14"
 #define NUM_OF_MONTHES 12
 #define NUM_OF_DAYS 365
 

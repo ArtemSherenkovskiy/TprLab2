@@ -2,6 +2,7 @@
 #define SETOFTHINGS_H
 
 #include "thing.h"
+#include <QMessageBox>
 
 
 class SetOfThings

@@ -8,7 +8,10 @@ TableResult::TableResult(QWidget *parent) :
 
     calculator = new Calculator();
    createTable();
-   ui->setupUi(this);
+   //ui->setupUi(this);
+   QMessageBox box;
+   box.setText("Calculation complete)");
+   box.exec();
 }
 
 TableResult::~TableResult()
@@ -18,13 +21,15 @@ TableResult::~TableResult()
 
 void TableResult::createTable()
 {
+    output = "";
+
     QFile file("result.csv");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
            return;
 
-       QTextStream out(&file);
+    QTextStream out(&file);
 
-    QList<double> *probability = new QList<double>();
+
     auto sets = calculator->getMonthExpenditure();
     //
     //Сколько нужно потратить всего на первозку и докупку одежды
@@ -45,123 +50,96 @@ void TableResult::createTable()
         }
         out<<"\n";
     }
-    out<<"\n\n\n"<<"For 12 monthes\nSets;Cost\n";
-    //
-    //for 12 monthes
-    //
-    //
-    for(int i = 0; i < NUM_OF_MONTHES; ++i)
-    {
-        probability->append((double)1/(double)12);
-    }
-    auto avarageExp = calculator->calculateAnswers(probability);
-    for(int i = 0;i<avarageExp->size();i++)
-    {
-        out<<i<<";"<<avarageExp->at(i)<<"\n";
-    }
-    //
-    //Winter
-    //
-    //
-    out<<"\n\n\n"<<"Winter\nSets;Cost\n";
-    double oneThird = (double)1/(double)3;
-    createPrabability(probability,oneThird,oneThird,0,0,0,0,0,0,0,0,0,oneThird);
-    avarageExp = calculator->calculateAnswers(probability);
-    for(int i = 0;i<avarageExp->size();i++)
-    {
-        out<<i<<";"<<avarageExp->at(i)<<"\n";
-    }
-    //
-    //Spring
-    //
-    //
-    out<<"\n\n\n"<<"Spring\nSets;Cost\n";
-    createPrabability(probability,0,0,oneThird,oneThird,oneThird,0,0,0,0,0,0,0);
-    avarageExp = calculator->calculateAnswers(probability);
-    for(int i = 0;i<avarageExp->size();i++)
-    {
-        out<<i<<";"<<avarageExp->at(i)<<"\n";
-    }
-    //
-    //Summer
-    //
-    //
-    out<<"\n\n\n"<<"Summer\nSets;Cost\n";
-    createPrabability(probability,0,0,0,0,0,oneThird,oneThird,oneThird,0,0,0,0);
-    avarageExp = calculator->calculateAnswers(probability);
-    for(int i = 0;i<avarageExp->size();i++)
-    {
-        out<<i<<";"<<avarageExp->at(i)<<"\n";
-    }
-    //
-    //Autumn
-    //
-    //
-    out<<"\n\n\n"<<"Autumn\nSets;Cost\n";
-    createPrabability(probability,0,0,0,0,0,0,0,0,oneThird,oneThird,oneThird,0);
-    avarageExp = calculator->calculateAnswers(probability);
-    for(int i = 0;i<avarageExp->size();i++)
-    {
-        out<<i<<";"<<avarageExp->at(i)<<"\n";
-    }
 
-    //
-    //for 12 monthes
-    //
-    //
+    double oneThird = (double)1/(double)3;
+    double oneSix = (double)1/(double)6;
+    double oneTwelve = (double)1/(double)12;
+    double oneEighteens = (double)1/(double)18;
+
     double day31 = (double)31/(double)365;
     double day30 = (double)30/(double)365;
     double day28 = (double)28/(double)365;
 
-    out<<"\n\n\n"<<"12monthes with days\nSets;Cost\n";
+    QList<double> *probability = new QList<double>();
+
+
+    //
+    //for 12 monthes
+    //
+    //
+    createPrabability(probability, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve);
+    createSimpleTable(probability, QString("For 12 monthes"));
+
+
+    //
+    //Winter
+    //
+    //
+
+    createPrabability(probability,oneThird,oneThird,0,0,0,0,0,0,0,0,0,oneThird);
+    createSimpleTable(probability,QString("Winter"));
+
+    //
+    //Spring
+    //
+    //
+
+    createPrabability(probability,0,0,oneThird,oneThird,oneThird,0,0,0,0,0,0,0);
+    createSimpleTable(probability,QString("Spring"));
+
+    //
+    //Summer
+    //
+    //
+
+    createPrabability(probability,0,0,0,0,0,oneThird,oneThird,oneThird,0,0,0,0);
+    createSimpleTable(probability,QString("Summer"));
+    //
+    //Autumn
+    //
+    //
+
+    createPrabability(probability,0,0,0,0,0,0,0,0,oneThird,oneThird,oneThird,0);
+    createSimpleTable(probability,QString("Autumn"));
+
+
+    //
+    //for 12 monthes with days
+    //
+    //
+
     createPrabability(probability,day31,day28,day31,day30,day31,day30,day31,day31,day30,day31,day30,day31);
-    avarageExp = calculator->calculateAnswers(probability);
-    for(int i = 0;i<avarageExp->size();i++)
-    {
-        out<<i<<";"<<avarageExp->at(i)<<"\n";
-    }
+    createSimpleTable(probability,QString("12 monthes with days"));
 
     //
     //for 12 monthes winter probability x3
     //
     //
-    double oneEighteens = (double)1/(double)18;
-    double oneSix = (double)1/(double)6;
 
-    out<<"\n\n\n"<<"12monthes winterx3\nSets;Cost\n";
     createPrabability(probability,oneSix,oneSix,oneEighteens,oneEighteens,oneEighteens,oneEighteens,oneEighteens,oneEighteens,oneEighteens,oneEighteens,oneEighteens,oneSix);
-    avarageExp = calculator->calculateAnswers(probability);
-    for(int i = 0;i<avarageExp->size();i++)
-    {
-        out<<i<<";"<<avarageExp->at(i)<<"\n";
-    }
+    createSimpleTable(probability,QString("Winter probabiliti x3"));
 
     //
     //for 12 monthes things x1/3
     //
     //
 
-    out<<"\n\n\n"<<"12monthes things x1/3\nSets;Cost\n";
-    probability->clear();
-    for(int i = 0; i < NUM_OF_MONTHES; ++i)
-    {
-        probability->append((double)1/(double)12);
-    }
+    createPrabability(probability, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve, oneTwelve);
     QMap<int, double> *mapa = new QMap<int, double>();
     mapa->insert(2, oneThird);
     mapa->insert(4, oneThird);
     mapa->insert(9, oneThird);
     mapa->insert(15, oneThird);
     mapa->insert(16, oneThird);
-    avarageExp = calculator->calculateAnswers(probability);
-    for(int i = 0;i<avarageExp->size();i++)
-    {
-        out<<i<<";"<<avarageExp->at(i)<<"\n";
-    }
+    createSimpleTable(probability, QString("12monthes things x1/3"), mapa);
 
 
+
+    out << output;
 
 }
+
+
 
 void TableResult::createPrabability(QList<double> *probability, double d1, double d2, double d3, double d4, double d5, double d6, double d7, double d8, double d9, double d10, double d11, double d12)
 {
@@ -179,6 +157,28 @@ void TableResult::createPrabability(QList<double> *probability, double d1, doubl
     probability->append(d11);
     probability->append(d12);
 
+}
+
+void TableResult::createSimpleTable(QList<double> *probability, QString tableName)
+{
+    output += "\n\n\n" + tableName + "\nSets;Cost\n";
+
+    auto avarageExp = calculator->calculateAnswers(probability);
+    for(int i = 0;i<avarageExp->size();i++)
+    {
+        output += QString::number(i) + ";" + QString::number(avarageExp->at(i)) + "\n";
+    }
+}
+
+void TableResult::createSimpleTable(QList<double> *probability, QString tableName, QMap<int, double> *newPrices)
+{
+    output += "\n\n\n" + tableName + "\nSets;Cost\n";
+
+    auto avarageExp = calculator->calculateAnswers(probability, newPrices);
+    for(int i = 0;i<avarageExp->size();i++)
+    {
+        output += QString::number(i) + ";" + QString::number(avarageExp->at(i)) + "\n";
+    }
 }
 
 

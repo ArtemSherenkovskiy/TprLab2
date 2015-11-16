@@ -13,3 +13,9 @@ Thing::Thing(int id, QString name, double weight, int cost)
     this->cost = cost;
 }
 
+int Thing::foreignCost()
+{
+
+    return id ? cost + FOREIGN_BONUS : cost;
+}
+

@@ -16,6 +16,7 @@ public:
     double weight;
     int cost;
     static const int FOREIGN_BONUS = 2;// на 2 уо дороже за гарницей
+    int foreignCost();
 
 };
 
