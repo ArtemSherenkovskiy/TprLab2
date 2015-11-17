@@ -41,9 +41,14 @@ QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray)
  * pointer to QMap<int, double> that contains combination (id of thing, koef to multiply cost of this thing)
  * @return QList<double> *
  * returns pointer to QList<double> costs you need to spend abroad
+ * returns pointer to empt QList if newPrices values contains keficient which is equal to zero
  */
 QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray, QMap<int, double> *newPrices/*multyplies to current costs of things*/)
 {
+    if(newPrices->values().contains((double)(0)))
+    {
+        return new QList<double>();
+    }
     for(int i = 0, size = THINGS.size(); i < size; ++i)
     {
         double value = newPrices->value(i, -1);

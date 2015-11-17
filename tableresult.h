@@ -5,6 +5,7 @@
 #include <calculator.h>
 #include <QMainWindow>
 #include <QFile>
+#include <QFileInfo>
 #include <QTextStream>
 
 namespace Ui {
@@ -18,7 +19,7 @@ class TableResult : public QMainWindow
 public:
     explicit TableResult(QWidget *parent = 0);
     ~TableResult();
-void createTable();
+QString createTable();
 private:
     Ui::TableResult *ui;
     Calculator *calculator;

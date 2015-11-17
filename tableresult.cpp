@@ -7,11 +7,10 @@ TableResult::TableResult(QWidget *parent) :
 {
 
     calculator = new Calculator();
-   createTable();
-   //ui->setupUi(this);
-   QMessageBox box;
-   box.setText("Calculation complete)");
-   box.exec();
+    QString filePath = createTable();
+    ui->setupUi(this);
+    ui->label_3->setText(filePath);
+    QObject::connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 TableResult::~TableResult()
@@ -19,14 +18,13 @@ TableResult::~TableResult()
     delete ui;
 }
 
-void TableResult::createTable()
+QString TableResult::createTable()
 {
     output = "";
 
     QFile file("result.csv");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-           return;
-
+        return QString("Error opening file!!!");
     QTextStream out(&file);
 
 
@@ -133,9 +131,9 @@ void TableResult::createTable()
     mapa->insert(16, oneThird);
     createSimpleTable(probability, QString("12monthes things x1/3"), mapa);
 
-
-
     out << output;
+    QFileInfo fileInfo(file);
+    return fileInfo.absoluteFilePath();
 
 }
 
