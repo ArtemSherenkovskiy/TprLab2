@@ -22,31 +22,25 @@ QString TableResult::createTable()
 {
     output = "";
 
-    QFile file("result.csv");
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-        return QString("Error opening file!!!");
-    QTextStream out(&file);
-
-
     auto sets = calculator->getMonthExpenditure();
     //
     //Сколько нужно потратить всего на первозку и докупку одежды
     //
     //
-    out<< "All expenditure\nSets ;";
+    output += "All expenditure\nSets ;";
     for(int i = 0 ; i<NUM_OF_MONTHES;i++)
     {
-        out<<i+1<<";";
+        output += QString::number(i+1) + ";";
     }
-    out<<"\n";
+    output += "\n";
     for(int i=0;i<sets.size();i++)
     {
-        out<<i<<";";
+        output += QString::number(i + 1) + ";";
         for(int j=0; j<sets.at(i)->size();j++)
         {
-            out<<sets.at(i)->at(j)<<";";
+            output += QString::number(sets.at(i)->at(j)) + ";";
         }
-        out<<"\n";
+        output += "\n";
     }
 
     double oneThird = (double)1/(double)3;
@@ -131,6 +125,10 @@ QString TableResult::createTable()
     mapa->insert(16, oneThird);
     createSimpleTable(probability, QString("12monthes things x1/3"), mapa);
 
+    QFile file("result.csv");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return QString("Error opening file!!!");
+    QTextStream out(&file);
     out << output;
     QFileInfo fileInfo(file);
     return fileInfo.absoluteFilePath();
@@ -161,22 +159,43 @@ void TableResult::createSimpleTable(QList<double> *probability, QString tableNam
 {
     output += "\n\n\n" + tableName + "\nSets;Cost\n";
 
-    auto avarageExp = calculator->calculateAnswers(probability);
+    QList<double> * avarageExp = calculator->calculateAnswers(probability);
     for(int i = 0;i<avarageExp->size();i++)
     {
-        output += QString::number(i) + ";" + QString::number(avarageExp->at(i)) + "\n";
+        output += QString::number(i + 1) + ";" + QString::number(avarageExp->at(i)) + "\n";
     }
+    int bestId = calculateBestSet(avarageExp);
+    output += "\n;Set;Cost\nBest;" + QString::number(bestId + 1) + ";" + QString::number(avarageExp->at(bestId));
 }
 
 void TableResult::createSimpleTable(QList<double> *probability, QString tableName, QMap<int, double> *newPrices)
 {
     output += "\n\n\n" + tableName + "\nSets;Cost\n";
 
-    auto avarageExp = calculator->calculateAnswers(probability, newPrices);
+    QList<double> * avarageExp = calculator->calculateAnswers(probability, newPrices);
     for(int i = 0;i<avarageExp->size();i++)
     {
-        output += QString::number(i) + ";" + QString::number(avarageExp->at(i)) + "\n";
+        output += QString::number(i + 1) + ";" + QString::number(avarageExp->at(i)) + "\n";
     }
+    int bestId = calculateBestSet(avarageExp);
+    output += "\n;Set;Cost\nBest;" + QString::number(bestId + 1) + ";" + QString::number(avarageExp->at(bestId));
 }
+
+int TableResult::calculateBestSet(QList<double> *avarageExpenditures)
+{
+    int bestId = 0;
+    double bestExpenditure = INT_MAX;
+    for(int i = 0, size = avarageExpenditures->size(); i < size; ++i)
+    {
+        if(avarageExpenditures->at(i) < bestExpenditure)
+        {
+            bestId = i;
+            bestExpenditure = avarageExpenditures->at(i);
+        }
+    }
+    return bestId;
+}
+
+
 
 
