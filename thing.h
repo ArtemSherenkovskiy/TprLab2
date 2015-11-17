@@ -9,14 +9,28 @@
 class Thing
 {
 public:
-    Thing();
     Thing(int id, QString name, double weight, int cost);
+    int foreignCost();
+
+
+    int getId() const;
+    void setId(int value);
+
+    QString getName() const;
+    void setName(const QString &value);
+
+    double getWeight() const;
+    void setWeight(double value);
+
+    int getCost() const;
+    void setCost(int value);
+
+private:
     int id;
     QString name;
     double weight;
     int cost;
     static const int FOREIGN_BONUS = 2;// на 2 уо дороже за гарницей
-    int foreignCost();
 
 };
 

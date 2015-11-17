@@ -5,9 +5,8 @@ TableResult::TableResult(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::TableResult)
 {
-
     calculator = new Calculator();
-    QString filePath = createTable();
+    QString filePath = createTables();
     ui->setupUi(this);
     ui->label_3->setText(filePath);
     QObject::connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(close()));
@@ -18,7 +17,13 @@ TableResult::~TableResult()
     delete ui;
 }
 
-QString TableResult::createTable()
+/**
+ * @brief TableResult::createTables
+ * create all output tables and write them into file
+ * @return
+ * QString which contains the absolute path to the file
+ */
+QString TableResult::createTables()
 {
     output = "";
 
@@ -137,6 +142,36 @@ QString TableResult::createTable()
 
 
 
+/**
+ * @brief TableResult::createPrabability
+ * function appends all input double values to QList
+ * @param QList<double> *probability
+ * pointer to QList in which function appends all input double values, this list is cleared firstly
+ * @param double d1
+ * probability to come back in January
+ * @param double d2
+ * probability to come back in February
+ * @param double d3
+ * probability to come back in March
+ * @param double d4
+ * probability to come back in April
+ * @param double d5
+ * probability to come back in May
+ * @param double d6
+ * probability to come back in June
+ * @param double d7
+ * probability to come back in July
+ * @param double d8
+ * probability to come back in August
+ * @param double d9
+ * probability to come back in September
+ * @param double d10
+ * probability to come back in October
+ * @param double d11
+ * probability to come back in November
+ * @param double d12
+ * probability to come back in December
+ */
 void TableResult::createPrabability(QList<double> *probability, double d1, double d2, double d3, double d4, double d5, double d6, double d7, double d8, double d9, double d10, double d11, double d12)
 {
     probability->clear();
@@ -155,6 +190,17 @@ void TableResult::createPrabability(QList<double> *probability, double d1, doubl
 
 }
 
+
+
+/**
+ * @brief TableResult::createSimpleTable
+ * create table in string variant and appent it to private QString output
+ * @param QList<double> *probability
+ * probability of coming back in each month of the year
+ * @param QString tableName
+ * name of the table that function will created
+ */
+
 void TableResult::createSimpleTable(QList<double> *probability, QString tableName)
 {
     output += "\n\n\n" + tableName + "\nSets;Cost\n";
@@ -167,6 +213,19 @@ void TableResult::createSimpleTable(QList<double> *probability, QString tableNam
     int bestId = calculateBestSet(avarageExp);
     output += "\n;Set;Cost\nBest;" + QString::number(bestId + 1) + ";" + QString::number(avarageExp->at(bestId));
 }
+
+
+/**
+ * @brief TableResult::createSimpleTable
+ * create table in string variant and appent it to private QString output
+ * @param QList<double> *probability
+ * probability of coming back in each month of the year
+ * @param QString tableName
+ * name of the table that function will created
+ * @param QMap<int, double> *newPrices
+ * pointer to QMap  that contains combination of id of thing and koeficient to multiply the cost of thing
+ */
+
 
 void TableResult::createSimpleTable(QList<double> *probability, QString tableName, QMap<int, double> *newPrices)
 {
@@ -181,6 +240,15 @@ void TableResult::createSimpleTable(QList<double> *probability, QString tableNam
     output += "\n;Set;Cost\nBest;" + QString::number(bestId + 1) + ";" + QString::number(avarageExp->at(bestId));
 }
 
+
+/**
+ * @brief TableResult::calculateBestSet
+ * calculates the lowest item in QList
+ * @param QList<double> *avarageExpenditures
+ * pointer to QList that contains expenditures for each SetOfThings
+ * @return
+ * returns index of item with the lowest number
+ */
 int TableResult::calculateBestSet(QList<double> *avarageExpenditures)
 {
     int bestId = 0;

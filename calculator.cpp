@@ -41,7 +41,7 @@ QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray)
  * pointer to QMap<int, double> that contains combination (id of thing, koef to multiply cost of this thing)
  * @return QList<double> *
  * returns pointer to QList<double> costs you need to spend abroad
- * returns pointer to empt QList if newPrices values contains keficient which is equal to zero
+ * returns pointer to empty QList if newPrices values contains koeficient which is equal to zero
  */
 QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray, QMap<int, double> *newPrices/*multyplies to current costs of things*/)
 {
@@ -54,7 +54,7 @@ QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray, QMa
         double value = newPrices->value(i, -1);
         if(value != -1)
         {
-            THINGS[i]->cost = ((double)(THINGS[i]->cost) * value) + 0.5;
+            THINGS[i]->setCost(((double)(THINGS[i]->getCost()) * value) + 0.5);
         }
     }
     calculateMonthExpenditure();
@@ -64,7 +64,7 @@ QList<double> *Calculator::calculateAnswers(QList<double> *probabilityArray, QMa
         double value = newPrices->value(i, -1);
         if(value != -1)
         {
-            THINGS[i]->cost = ((double)(THINGS[i]->cost) / value) + 0.5;
+            THINGS[i]->setCost(((double)(THINGS[i]->getCost()) / value) + 0.5);
         }
     }
     return answer;
@@ -82,7 +82,7 @@ void Calculator::calculateMonthExpenditure()
         monthExpenditure.append(new QList<double>());
         for(int j = 0; j < NUM_OF_MONTHES; ++j)
         {
-            monthExpenditure[i]->append(SETS_OF_THINGS[i]->cost + foreignCostCalculate(SETS_OF_THINGS[i], temperatureArray[j]));
+            monthExpenditure[i]->append(SETS_OF_THINGS[i]->getCost() + foreignCostCalculate(SETS_OF_THINGS[i], temperatureArray[j]));
         }
     }
 }
@@ -114,25 +114,25 @@ double Calculator::foreignCostCalculate(SetOfThings *setOfThings, int temperatur
             break;
         }
     }
-    if(needSet->head->id != setOfThings->head->id)
+    if(needSet->getHead()->getId() != setOfThings->getHead()->getId())
     {
-        needCost += needSet->head->foreignCost();
+        needCost += needSet->getHead()->foreignCost();
     }
-    if(needSet->upper->id != setOfThings->upper->id)
+    if(needSet->getUpper()->getId() != setOfThings->getUpper()->getId())
     {
-        needCost += needSet->upper->foreignCost();
+        needCost += needSet->getUpper()->foreignCost();
     }
-    if(needSet->gloves->id != setOfThings->gloves->id)
+    if(needSet->getGloves()->getId() != setOfThings->getGloves()->getId())
     {
-        needCost += needSet->gloves->foreignCost();
+        needCost += needSet->getGloves()->foreignCost();
     }
-    if(needSet->pants->id != setOfThings->pants->id)
+    if(needSet->getPants()->getId() != setOfThings->getPants()->getId())
     {
-        needCost += needSet->pants->foreignCost();
+        needCost += needSet->getPants()->foreignCost();
     }
-    if(needSet->shoes->id != setOfThings->shoes->id)
+    if(needSet->getShoes()->getId() != setOfThings->getShoes()->getId())
     {
-        needCost += needSet->shoes->foreignCost();
+        needCost += needSet->getShoes()->foreignCost();
     }
     return needCost;
 }
