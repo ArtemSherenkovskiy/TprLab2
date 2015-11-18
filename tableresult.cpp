@@ -27,12 +27,14 @@ QString TableResult::createTables()
 {
     output = "";
 
+    output += calculator->createTableWithWords();
+
     auto sets = calculator->getMonthExpenditure();
     //
     //Сколько нужно потратить всего на первозку и докупку одежды
     //
     //
-    output += "All expenditure\nSets ;";
+    output += "\n\n\n\nAll expenditure\nSets ;Transport cost;";
     for(int i = 0 ; i<NUM_OF_MONTHES;i++)
     {
         output += QString::number(i+1) + ";";
@@ -40,7 +42,7 @@ QString TableResult::createTables()
     output += "\n";
     for(int i=0;i<sets.size();i++)
     {
-        output += QString::number(i + 1) + ";";
+        output += QString::number(i + 1) + ";" + QString::number(calculator->transportationCost(i)) + ";";
         for(int j=0; j<sets.at(i)->size();j++)
         {
             output += QString::number(sets.at(i)->at(j)) + ";";
